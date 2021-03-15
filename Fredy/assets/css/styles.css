@@ -1,0 +1,97 @@
+h1 {
+  color: grey;
+  font-weight: bold;
+  font-family: Merriweather;
+}
+
+.btn.btn-primary {
+  margin-left: 300px;
+}
+
+img {
+  margin: auto;
+  display: block;
+  position: relative;
+  border-radius: 50px;
+}
+
+p {
+  color: grey;
+  font-family: Merriweather;
+  font-size: 20px;
+  padding: 5px;
+}
+
+h2 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Merriweather;
+}
+
+h5 {
+  font-weight: bold;
+  font-family: Merriweather;
+  color: blue;
+  margin-top: auto;
+  text-align: center;
+  line-height: 40;
+}
+
+.perfil {
+  border-radius: 100px;
+}
+
+.perfil {
+  border-radius: 100px;
+  width: 180px;
+}
+
+.cerrar {
+  padding: 50px;
+  color: #200098;
+}
+
+.horizontal-separator {
+  background-color: grey;
+}
+
+div {
+  padding: 1px;
+}
+
+img {
+  border-radius: 20px;
+  width: 180px;
+}
+
+.result-card-item-filter {
+  margin: 0 30px;
+}
+
+.iconos {
+  margin: 0 50px;
+}
+
+.eliminar {
+  margin: 0 50px;
+}
+
+.result-card-item {
+  background-color: #f3f9f9;
+}
+
+.btn.btn-primary {
+  margin-left: 430px;
+  border-radius: 10px;
+}
+
+div {
+}
+
+.col-md-6 {
+}
+
+.col-md-6 {
+  background-color: #f3f9f9;
+}
+
