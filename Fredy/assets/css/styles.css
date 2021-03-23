@@ -47,8 +47,9 @@ h5 {
 }
 
 .cerrar {
-  padding: 50px;
-  color: #200098;
+  padding: 10px;
+  color: #1C3988;
+  font-family: Merriweather;
 }
 
 .horizontal-separator {
@@ -70,14 +71,18 @@ img {
 
 .iconos {
   margin: 0 50px;
+  background-color: #1C3988;
+  color: white;
 }
 
 .eliminar {
   margin: 0 50px;
+  background-color: red;
+  color: white;
 }
 
 .result-card-item {
-  background-color: #f3f9f9;
+  background-color: #F3F3FA;
 }
 
 .btn.btn-primary {
@@ -92,6 +97,11 @@ div {
 }
 
 .col-md-6 {
-  background-color: #f3f9f9;
+  background-color: #F3F3FA;
+}
+
+.editar {
+  background-color: #6E8AE9;
+  color: white;
 }
 
