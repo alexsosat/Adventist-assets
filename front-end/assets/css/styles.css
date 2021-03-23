@@ -1,0 +1,309 @@
+#heading {
+  margin-bottom: 32px;
+}
+
+#main-search-bar {
+  background-color: #F3F3FA;
+}
+
+#apartment-type {
+  float: left;
+  margin-right: 12px;
+}
+
+#dropdown-button {
+  background-color: #1C3988;
+}
+
+.search-button {
+  background-color: #1C3988;
+  border-color: #1C3988;
+  padding: 10px;
+  border-color: #1C3988;
+}
+
+.dropdown-button {
+  color: #1C3988;
+  margin-bottom: 12px;
+  background-color: white;
+  border-color: #1C3988;
+}
+
+header {
+  margin-bottom: 36px;
+}
+
+.page-title {
+  margin-bottom: 24px;
+}
+
+.filters {
+  background-color: #1C3988;
+  padding: 15px;
+}
+
+.filter-title {
+  margin-bottom: 12px;
+  color: white;
+}
+
+.btn.btn-primary.dropdown-toggle.dropdown-button-filter {
+  background-color: white;
+  color: black;
+  text-align: start;
+}
+
+.dropdown-toggle::after {
+  float: right;
+  margin-top: 10px;
+}
+
+.filter-div {
+  margin-bottom: 12px;
+}
+
+#clear-filters {
+  padding: 0px;
+}
+
+btn {
+  font-family: 'Open Sans', sans-serif;
+}
+
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#dropdown-sort-filter {
+  border-color: #7C98A7;
+}
+
+body {
+  font-family: 'Open Sans';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Merriweather, serif;
+}
+
+#result-coinc {
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.result-card-item {
+  background-color: #F3F3FA;
+  border: 1px solid rgba(203,214,220,1);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  color: black;
+}
+
+.result-img {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  width: 100%;
+}
+
+.result-card-content {
+  margin: 5px 20px 20px 20px;
+}
+
+.vertical-separator {
+  border: rgba(124,152,167,0.2) solid 1px;
+  height: 75px;
+  margin: 0px 20px;
+}
+
+.result-card-pago-title {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #1E292F;
+}
+
+.result-card-item-cost {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.icon {
+  color: #ABAFB1;
+  margin-right: 5px;
+}
+
+.result-item-title {
+  margin-bottom: 5px;
+}
+
+.result-card-item-filter {
+  margin: 0px 30px;
+}
+
+.horizontal-separator {
+  border: 1px solid rgba(124,152,167,0.2);
+  margin-bottom: 1rem;
+}
+
+.result-card-item-published {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.circle-image {
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
+}
+
+@media (max-width: 575px) {
+  .result-img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 0px;
+    height: 250px;
+  }
+}
+
+.icon.icon-blue {
+  color: #4764C3;
+  font-size: 36px;
+}
+
+.user-detail-banner {
+  background-color: #F3F3FA;
+}
+
+.big-user-circle {
+  height: 200px;
+  width: 200px;
+}
+
+.btn.btn-primary.btn-download.btn-big {
+  width: 100%;
+}
+
+.btn.btn-primary.btn-download.btn-big {
+  height: 50px;
+}
+
+.user-image {
+  height: 200px;
+  width: 200px;
+  background: url(../../assets/img/1.jpg) center/ contain no-repeat;
+}
+
+.user-a {
+  color: #A2A2A2;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #6E8AE9;
+}
+
+.search-button:hover {
+  background-color: #6E8AE9;
+  border-color: #6E8AE9;
+}
+
+.text-blue {
+  color: #1C3988;
+}
+
+.login-clean {
+  background-color: #F3F3FA;
+  padding: 30px;
+  border-radius: 25px;
+}
+
+.text-hover {
+  color: #6E8AE9;
+}
+
+.search-section {
+  background-color: #F3F3FA;
+  padding: 50px;
+}
+
+.recent-item {
+  box-shadow: 0px 10px 20px 0px rgba(110,138,233,0.4);
+  border-radius: 10px;
+}
+
+.recent-item-img {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.user-link {
+  color: #A2A2A2;
+}
+
+.user-logout {
+  font-size: 22px;
+}
+
+.user-info-pane {
+  background-color: #F3F3FA;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.text-grey {
+  color: #7D7D7D;
+}
+
+.user-pub-pane {
+  border: 3px solid #1C3988;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.btn-ver {
+  background-color: #1C3988;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.btn-editar {
+  background-color: #6E8AE9;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.btn-borrar {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.btn-editar:hover {
+  color: black;
+}
+
+.btn-ver:hover {
+  color: black;
+}
+
+.btn-borrar:hover {
+  color: black;
+}
+
+.result-card {
+  color: black;
+}
+
+.search-item {
+  color: black;
+}
+

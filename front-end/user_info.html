@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Real State</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/Drag-Drop-File-Input-Upload.css">
+    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="rounded-circle big-user-circle" style="background: url(&quot;assets/img/1.jpg&quot;) center / contain no-repeat;"></div>
+                    <h2>Devon Lane</h2>
+                    <div class="horizontal-separator w-100"></div>
+                </div>
+                <div class="mb-4"><a class="user-link" href="user_info.html">
+                        <p>Información&nbsp;</p>
+                    </a><a class="user-link" href="user_pub.html">
+                        <p>Publicaciones&nbsp;</p>
+                    </a></div><a class="d-flex justify-content-between text-blue user-logout align-items-center" href="#"><span class="cerrar">Cerrar Sesión&nbsp;</span><i class="fa fa-sign-out"></i></a>
+            </div>
+            <div class="col col-md-8">
+                <div class="user-info-pane">
+                    <div class="mb-3">
+                        <h2 class="text-grey">Información General</h2>
+                        <div class="horizontal-separator w-100"></div>
+                        <form method="patch">
+                            <div class="form-group"><label for="name">Nombre(s):</label><input class="form-control form-control" type="text" name="name"></div>
+                            <div class="form-group"><label name="surname">Apellido(s):</label><input class="form-control form-control" type="text" for="surname"></div>
+                            <div class="form-group"><label for="email">Correo Electrónico:</label><input class="form-control form-control" type="text" name="email"></div>
+                            <div class="form-group"><label class="mr-3" for="image-user">Imagen de perfil:</label><input class="form-control-file" type="file" name="image-user"></div>
+                        </form>
+                        <div class="d-flex justify-content-end"><button class="btn btn-primary search-button" type="submit">Guardar cambios</button></div>
+                    </div>
+                    <div>
+                        <h2 class="text-grey">Seguridad</h2>
+                        <div class="horizontal-separator w-100">
+                            <form method="patch">
+                                <div class="form-group"><label for="password">Nueva contraseña</label><input class="form-control form-control" type="password" name="password"></div>
+                                <div class="form-group"><label for="repeated-password">Repetir contraseña</label><input class="form-control" type="password" name="repeated-password"></div>
+                            </form>
+                            <div class="d-flex justify-content-end"><button class="btn btn-primary search-button" type="submit">Guardar cambios</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/dropdowns.js"></script>
+</body>
+
+</html>
