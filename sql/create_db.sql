@@ -2,7 +2,7 @@ create database advAssets;
 
 use advAssets;
 
-CREATE TABLE `User`(
+CREATE TABLE `Users`(
     `id_user` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(20) NOT NULL,
     `surname` VARCHAR(50) NOT NULL,
@@ -34,4 +34,8 @@ CREATE TABLE `Image`(
 );
 
 
+ALTER TABLE `user` ADD `created_at` TIMESTAMP NULL AFTER `user_image`, ADD `updated_at` TIMESTAMP NULL AFTER `created_at`, ADD `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
 
+ALTER TABLE `publication` ADD `created_at` TIMESTAMP NULL AFTER `format`, ADD `updated_at` TIMESTAMP NULL AFTER `created_at`, ADD `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
+
+ALTER TABLE `image` ADD `created_at` TIMESTAMP NULL AFTER `image_file`, ADD `updated_at` TIMESTAMP NULL AFTER `created_at`, ADD `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
