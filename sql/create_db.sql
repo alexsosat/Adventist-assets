@@ -1,3 +1,5 @@
+drop database advassets;
+
 create database advAssets;
 
 use advAssets;
@@ -8,7 +10,7 @@ CREATE TABLE `Users`(
     `surname` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `password` VARCHAR(180) NOT NULL,
-    `user_image` LONGBLOB NULL
+    `user_image` varchar(80) NULL
 );
 
 CREATE TABLE `Publication`(
@@ -27,7 +29,7 @@ CREATE TABLE `Publication`(
 CREATE TABLE `Image`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `pub_id` INT UNSIGNED NOT NULL,
-    `image_file` LONGBLOB NOT NULL,
+    `image_file`  varchar(80) NOT NULL,
     FOREIGN KEY (`pub_id`)
         REFERENCES `Publication` (`id`)
         ON DELETE CASCADE
