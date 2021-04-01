@@ -13,18 +13,19 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('fonts/fontawesome5-overrides.min.css.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Drag-Drop-File_Input-Upload.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Drag-Drop-File-Input-Upload.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Footer-Dark.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Navigation-with-Button.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -34,60 +35,6 @@
 
 <body>
     <div id="app">
-
-        <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    Left Side Of Navbar 
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                     Right Side Of Navbar 
-                    <ul class="navbar-nav ml-auto">
-                        Authentication Links 
-                        @guest
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                        </li>
-                                        @if (Route::has('register'))
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                            </li>
-                                        @endif
-                        @else
-                                        <li class="nav-item dropdown">
-                                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                {{ Auth::user()->name }}
-                                            </a>
-
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
-                                                </a>
-
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
-
         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" id="navbar">
             <div class="container"><a class="navbar-brand" href="{{ url('/') }}"><img id="nav-logo"
                         src="{{ asset('img/logo-nav.svg') }}"></a><button data-toggle="collapse"
@@ -102,12 +49,12 @@
                     @if (Route::has('login'))
                         @auth
                             <!--<a class="nav_user" href="#">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rounded-circle nav-circle-image"
-                                                            style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
-                                                        </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
-                                                    </div>
-                                                </a> -->
+                                                                                                                                                                                            <div class="d-flex align-items-center">
+                                                                                                                                                                                                <div class="rounded-circle nav-circle-image"
+                                                                                                                                                                                                    style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
+                                                                                                                                                                                                </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </a> -->
                             <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <div class="d-flex align-items-center">
@@ -117,9 +64,12 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
+                                    {{ __('info') }}
+                                </a>
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -153,7 +103,8 @@
     </div>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/dropdowns.js"></script>-->
+    <script src="{{ asset('js/dropdowns.js') }}"></script> -->
+    <script src="{{ asset('js/delete-post.js') }}"></script>
 </body>
 
 </html>

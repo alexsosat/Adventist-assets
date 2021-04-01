@@ -104,6 +104,21 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 }
 
+@media (min-width: 576px) {
+  .result-card-content {
+    max-width: 60%;
+  }
+}
+
+.limited-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
 .result-img {
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
@@ -112,6 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .result-card-content {
   margin: 5px 20px 20px 20px;
+  min-width: 60%;
 }
 
 .vertical-separator {
