@@ -13,16 +13,33 @@ CREATE TABLE `Users`(
     `user_image` varchar(80) NULL
 );
 
+CREATE TABLE `Dimension`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(10) NOT NULL
+);
+
+CREATE TABLE `Format`(
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(10) NOT NULL
+);
+
+
 CREATE TABLE `Publication`(
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT UNSIGNED NOT NULL,
     `title` VARCHAR(100) NOT NULL,
     `desc` VARCHAR(500) NULL,
     `url` VARCHAR(100) NOT NULL,
-    `dimension` INT NOT NULL,
-    `format` INT NOT NULL,
+    `dimension` INT unsigned NOT NULL,
+    `format` INT unsigned NOT NULL,
     FOREIGN KEY (`user_id`)
         REFERENCES `Users` (`id`)
+        ON DELETE CASCADE,
+	 FOREIGN KEY (`dimension`)
+        REFERENCES `Dimension` (`id`)
+        ON DELETE CASCADE,
+	FOREIGN KEY (`format`)
+        REFERENCES `Format` (`id`)
         ON DELETE CASCADE
 );
 

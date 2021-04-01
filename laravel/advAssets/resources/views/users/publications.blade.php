@@ -44,9 +44,11 @@
                                         <p class="result-item-title">{{ $Publication->title }}<br></p>
                                         <div class="d-flex">
                                             <div class="result-card-item-filter"><i
-                                                    class="fas fa-cubes icon"></i><span>3D</span></div>
+                                                    class="fas fa-cubes icon"></i><span>{{ $Publication->dimensionId }}</span>
+                                            </div>
                                             <div class="result-card-item-filter"><i
-                                                    class="far fa-file icon"></i><span>Obj</span></div>
+                                                    class="far fa-file icon"></i><span>{{ $Publication->formatId }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,9 +66,17 @@
                                         <i class="fas fa-edit mr-1"></i>
                                         <span>Editar</span>
                                     </a>
-                                    <a class="btn-borrar mb-2" href="#" onclick="event.preventDefault();deletePost(1)">
+                                    <a class="btn-borrar mb-2" href="#"
+                                        onclick="event.preventDefault();if(confirm('Estas seguro de eliminar esta publicación?')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
                                         <i class=" fas fa-trash mr-1"></i>
                                         <span>Eliminar</span>
+
+                                        <form id="delete-pub-{{ $Publication->id }}"
+                                            action="{{ route('publications.delete', $Publication->id) }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
                                     </a>
                                 </div>
                             </div>

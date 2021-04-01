@@ -63,8 +63,12 @@ class userController extends Controller
     return View('users.publications')->with(
         ['User'=>User::select('id','name','surname','user_image')->find($id), 
         'Publications'=>
-            Publication::select('publication.id','publication.title','publication.desc','publication.dimension','publication.format', 'image.image_file')
-            ->join('image', 'publication.id', '=', 'image.pub_id')->where('user_id','=',$id)->groupBy('publication.id')->paginate(5)]);
+            Publication::select('publication.id','publication.title','publication.desc',
+                'publication.dimension','publication.format', 'image.image_file', 'format.name as formatId','dimension.name as dimensionId')
+            ->join('image', 'publication.id', '=', 'image.pub_id')
+            ->join('format', 'publication.format','=','format.id')
+            ->join('dimension','publication.dimension', '=', 'dimension.id')
+            ->where('user_id','=',$id)->groupBy('publication.id')->paginate(5)]);
     }
 
     /**

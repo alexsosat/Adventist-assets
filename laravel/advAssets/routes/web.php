@@ -25,3 +25,5 @@ Route::get('/users/publications/{id}', 'userController@showPublications')->name(
 
 Route::patch('/users/update/{id}', 'userController@update')->name('users.update')->middleware('auth');
 Route::patch('/users/updatePassword/{id}', 'userController@updatePassword')->name('users.updatePassword')->middleware('auth');
+
+Route::delete('publications/delete/{id}', 'PublicationController@destroy')->name('publications.delete')->middleware('auth');

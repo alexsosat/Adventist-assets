@@ -48,12 +48,12 @@
                     @if (Route::has('login'))
                         @auth
                             <!--<a class="nav_user" href="#">
-                                                                                                                                                                                                                <div class="d-flex align-items-center">
-                                                                                                                                                                                                                    <div class="rounded-circle nav-circle-image"
-                                                                                                                                                                                                                        style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
-                                                                                                                                                                                                                    </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </a> -->
+                                                                                                                                                                                                                        <div class="d-flex align-items-center">
+                                                                                                                                                                                                                            <div class="rounded-circle nav-circle-image"
+                                                                                                                                                                                                                                style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
+                                                                                                                                                                                                                            </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
+                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                    </a> -->
                             <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <div class="d-flex align-items-center">
@@ -103,7 +103,6 @@
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script> -->
-    <script src="{{ asset('js/delete-post.js') }}"></script>
 </body>
 
 </html>
