@@ -67,10 +67,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        
-        $extension = $data['user_image']->extension();
-        $data['user_image']->storeAs('/public/img/users', time().".".$extension);
-        $url = Storage::url('img/users/'.time().".".$extension);
+
+        if(array_key_exists('user_image', $data)){
+            $extension = $data['user_image']->extension();
+            $data['user_image']->storeAs('/public/img/users', time().".".$extension);
+            $url = Storage::url('img/users/'.time().".".$extension);
+        }
+        else{
+            $url = "/storage/img/defaults/user.png";
+        }
 
         return User::create([
             'name' => $data['name'],

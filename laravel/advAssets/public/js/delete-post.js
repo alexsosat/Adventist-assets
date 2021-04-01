@@ -1,7 +1,6 @@
 function deletePost($id) {
-    confirm('Quiere borrar este usuario?');
-    /*if (confirm('Quiere borrar este usuario?')) {
-        $.post('/users/delete/'.$User - > id, {
+    if (confirm('Quiere borrar este usuario?')) {
+        $.post('/publications/delete/'.$id, {
             '_token': '{{ @csrf_token() }}',
             'method': 'DELETE'
         }, function (data) {
@@ -11,5 +10,5 @@ function deletePost($id) {
                 alert('Error al eliminar')
             }
         })
-    };*/
+    };
 }

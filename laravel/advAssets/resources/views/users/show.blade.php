@@ -24,7 +24,7 @@
                     <form id=" logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-                    <span class="cerrar">Cerrar Sesión&nbsp;</span><i class="fa fa-sign-out"></i>
+                    <span class="cerrar">Cerrar Sesión&nbsp;</span><i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
             <div class="col col-md-8">
