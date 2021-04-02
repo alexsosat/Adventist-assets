@@ -62,7 +62,7 @@
                                         <i class="fas fa-eye mr-1"></i>
                                         <span>Ver</span>
                                     </a>
-                                    <a class="btn-editar mb-2" href="createPage.html">
+                                    <a class="btn-editar mb-2" href="{{ route('publications.edit', $Publication->id) }}">
                                         <i class="fas fa-edit mr-1"></i>
                                         <span>Editar</span>
                                     </a>

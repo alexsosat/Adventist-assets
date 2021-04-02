@@ -1,15 +1,7 @@
-$(function(){
-  
-  $(".dropdown-dim a").click(function(){
-    
-    $("#dropdown-dim-val").text($(this).text());
-     $("#dropdown-dim-val").val($(this).text());
-  });
+function changeDropdownText(elementId, text, inputId, bdId) {
+  var element = document.getElementById(elementId);
+  element.innerText = text;
 
-     $(".dropdown-type a").click(function(){
-    
-    $("#dropdown-type-val").text($(this).text());
-     $("#dropdown-type-val").val($(this).text());
-  });
-    
-});
+  var input = document.getElementById(inputId);
+  input.value = bdId;
+}
