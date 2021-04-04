@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Publication;
+use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class PublicationController extends Controller
@@ -91,15 +94,57 @@ class PublicationController extends Controller
         $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
-        'description' => ['string', 'max:255'],
+        'description' => ['nullable','string', 'max:255'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
     ]);
 
+    if($request->description === null){
+        $request->description = 'descripción no disponible';
+    }
+            
         $Publication->title = $request->title;
+        $Publication->desc = $request->description;
+        $Publication->url = $request->url;
+        $Publication->dimension = $request->dimension;
+        $Publication->format = $request->format;
+
+        $Publication->update();
 
 
-         dd($request);
+        if($request->hasfile('files'))
+         {
+              $this->validate($request, [
+                'files.*' => 'mimes:jpg,png'
+        ]);
+
+        $Images = Image::all()->where('pub_id','=',$id);
+
+        foreach($Images as $Image){
+            list($empty, $storage,$img, $users, $file) = explode("/", $Image->image_file);
+            Storage::disk('public')->delete('img/publications/'.$file);
+            Image::destroy($Image->id);
+        }
+
+            $count = 0;
+        foreach($request->file('files') as $file)
+            {
+                $name = time().$count.'.'.$file->extension();
+                $file->storeAs('/public/img/publications/', $name);
+                $url = Storage::url('img/publications/'.$name);
+                
+                //create img in database
+                Image::create([
+                    'pub_id' => $id,
+                    'image_file' => $url,
+                    ]);
+
+                $count++;
+            }
+         }
+
+         return redirect('/users/publications/'.$Publication->user_id);
+
     }
     
     /**

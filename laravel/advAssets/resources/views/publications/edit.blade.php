@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <label class="font-weight-bold" for="description">Descripción</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" rows="10"
-                                name="description" required autocomplete="description"
+                                name="description" autocomplete="description"
                                 autofocus>{{ $Publication->desc }}</textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
@@ -96,11 +96,17 @@
                         </div>
                         <div class="form-group files color mb-4">
                             <div>
-                                <label class="font-weight-bold" for="files">Imágenes</label>
-                                <input class="form-control-file" type="file" multiple name="files">
+                                <label class="font-weight-bold" for="files[]">Imágenes</label>
+                                <input class="form-control-file @error('files.*') is-invalid @enderror" type="file" multiple
+                                    name="files[]" autocomplete="files[]" autofocus>
+                                @error('files.*')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-block search-button mb-3" type="submit">Publicar</button>
+                        <button class="btn btn-primary btn-block search-button mb-3" type="submit">Subir cambios</button>
                     </form>
                 </div>
             </div>
