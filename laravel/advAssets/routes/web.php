@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/info/{id}', 'userController@show')->name('users.show')->middleware('auth','uniqueId');
 Route::get('/users/publications/{id}', 'userController@showPublications')->name('users.publications')->middleware('auth', 'uniqueId');
-Route::get('/publications/edit/{id}', 'PublicationController@edit')->name('publications.edit')->middleware('auth'); //crear middleware parecido a uniqueId
+Route::get('/publications/edit/{id}', 'PublicationController@edit')->name('publications.edit')->middleware('auth','permitEdition'); //crear middleware parecido a uniqueId
 
 
 Route::patch('/users/update/{id}', 'userController@update')->name('users.update')->middleware('auth');

@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'uniqueId' => \App\Http\Middleware\EnsureIdIsValid::class,
+        'permitEdition' => \App\Http\Middleware\publicationEditable::class,
     ];
 }
