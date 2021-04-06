@@ -5,7 +5,7 @@ create database advAssets;
 use advAssets;
 
 CREATE TABLE `Users`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id` INT(100) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(20) NOT NULL,
     `surname` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
@@ -25,8 +25,8 @@ CREATE TABLE `Format`(
 
 
 CREATE TABLE `Publication`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_id` INT UNSIGNED NOT NULL,
+    `id` INT(100) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT(100) UNSIGNED NOT NULL,
     `title` VARCHAR(100) NOT NULL,
     `desc` VARCHAR(500) NULL,
     `url` VARCHAR(100) NOT NULL,
@@ -44,8 +44,8 @@ CREATE TABLE `Publication`(
 );
 
 CREATE TABLE `Image`(
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `pub_id` INT UNSIGNED NOT NULL,
+    `id` INT(100) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `pub_id` INT(100) UNSIGNED NOT NULL,
     `image_file`  varchar(80) NOT NULL,
     FOREIGN KEY (`pub_id`)
         REFERENCES `Publication` (`id`)
@@ -58,3 +58,5 @@ ALTER TABLE `users` ADD `created_at` TIMESTAMP NULL AFTER `user_image`, ADD `upd
 ALTER TABLE `publication` ADD `created_at` TIMESTAMP NULL AFTER `format`, ADD `updated_at` TIMESTAMP NULL AFTER `created_at`, ADD `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
 
 ALTER TABLE `image` ADD `created_at` TIMESTAMP NULL AFTER `image_file`, ADD `updated_at` TIMESTAMP NULL AFTER `created_at`, ADD `deleted_at` TIMESTAMP NULL AFTER `updated_at`;
+
+ALTER TABLE `publication` ADD `visual_archive` VARCHAR(80) NULL AFTER `format`;

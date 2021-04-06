@@ -1,13 +1,8 @@
 use advAssets;
 
 INSERT INTO `dimension` (`id`, `name`) VALUES ('1', '2D'), ('2', '3D');
-INSERT INTO `format` (`id`, `name`) VALUES ('1', 'PNG'), ('2', 'JPG'), ('3', 'SVG'), ('4', 'OBJ'), ('5', 'FBX'), ('6', 'BLEND'), ('7', 'CAD'), ('8', '3DS');
+INSERT INTO `format` (`id`, `name`) VALUES ('1', 'PNG'), ('2', 'JPG'), ('3', 'SVG'), ('4', 'OBJ'), ('5', 'FBX'), ('6', 'STL'), ('7', 'DAE'), ('8', 'PLY'),('9', 'GLTF');
 
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES (NULL, 'Alejandro', 'Sosa Trejo', 'email@ejemplo.com', 'contraseña');
-
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES (NULL, 'Miguel Angel', 'Varela Delgado', 'email@ejemploVarela.com', 'contraseña2');
-
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES (NULL, 'Freddy', 'Santos', 'ejemplo@ejemploFreddy.com', 'contraseña3');
 
 
 INSERT INTO `publication` (`id`, `user_id`, `title`, `desc`, `url`, `dimension`, `format`) VALUES 

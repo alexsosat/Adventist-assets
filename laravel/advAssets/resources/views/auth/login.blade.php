@@ -33,7 +33,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group"><label class="font-weight-bold" for="password">Contraseña</label>
+                        <div class="form-group mb-4"><label class="font-weight-bold" for="password">Contraseña</label>
                             <input class="form-control @error('password') is-invalid @enderror" type="password"
                                 name="password" id="password" placeholder="Contraseña" required
                                 autocomplete="current-password">
@@ -43,18 +43,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="form-group row mb-4">
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         <a class="d-none" href="#">Olvidaste tu contraseña?</a>
                         <button class="btn btn-primary btn-block search-button mb-3" type="submit">Ingresar</button>
                         <p class="text-center text-hover"><a href="{{ route('register') }}">¿Aún no estas registrado?
