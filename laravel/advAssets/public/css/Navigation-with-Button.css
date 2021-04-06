@@ -123,7 +123,11 @@
 }
 
 .nav_user:hover {
-  text-decoration: underline;
+  color:#6E8AE9;
+}
+
+.nav_user{
+  color:black;
 }
 
 .nav-circle-image {

@@ -47,19 +47,14 @@
                     </ul>
                     @if (Route::has('login'))
                         @auth
-                            <!--<a class="nav_user" href="#">
-                                                                                                                                                                                                                                            <div class="d-flex align-items-center">
-                                                                                                                                                                                                                                                <div class="rounded-circle nav-circle-image"
-                                                                                                                                                                                                                                                    style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
-                                                                                                                                                                                                                                                </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
-                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                        </a> -->
                             <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <div class="d-flex align-items-center">
                                     <div class="rounded-circle nav-circle-image"
                                         style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
-                                    </div><span class="text-dark font-weight-bold">{{ Auth::user()->name }}</span>
+                                    </div>
+                                    <span class="font-weight-bold">{{ Auth::user()->name }}</span>
+                                    <i class="fas fa-sort-down ml-2"></i>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -67,7 +62,11 @@
                                     {{ __('info') }}
                                 </a>
 
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item" href="{{ route('users.publications', Auth::user()->id) }}">
+                                    {{ __('Publicaciones') }}
+                                </a>
+
+                                <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>

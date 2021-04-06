@@ -323,3 +323,25 @@ a:hover {
   color: black;
 }
 
+.add-button:hover {
+  background-color: #6E8AE9;
+  border-color: #6E8AE9;
+}
+
+.add-button {
+  background-color: #1C3988;
+  border-color: #1C3988;
+  padding: 10px;
+  border-color: #1C3988;
+  width: 100%;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .add-button {
+    display: block;
+    width: initial!important;
+  }
+}
+
+

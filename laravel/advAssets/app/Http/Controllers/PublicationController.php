@@ -33,7 +33,10 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        //
+        return View('publications.create')->with([
+            'Formats'=>DB::select('select * from format'),
+            'Dimensions'=>DB::select('select * from dimension')
+                ]);
     }
 
     /**
@@ -44,7 +47,59 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $validated = $request->validate([
+        'title' => ['required','string', 'max:100'],
+        'url' => ['required', 'url', 'max:100'],
+        'description' => ['nullable','string', 'max:255'],
+        'dimension' => ['required', 'int'],
+        'format' => ['required', 'int'],
+    ]);
+
+    if($request->description === null){
+        $request->description = 'descripción no disponible';
+    }
+
+     $pubId = Publication::create([
+                    'user_id' => $request->user_id,
+                    'title' => $request->title,
+                    'desc' => $request->description,
+                    'url' => $request->url,
+                    'dimension' => $request->dimension,
+                    'format' => $request->format,
+                    ])->id;
+    
+
+    if($request->hasfile('files')){
+              $this->validate($request, [
+                'files.*' => 'mimes:jpg,png'
+        ]);
+
+            $count = 0;
+        foreach($request->file('files') as $file)
+            {
+                $name = time().$count.'.'.$file->extension();
+                $file->storeAs('/public/img/publications/', $name);
+                $url = Storage::url('img/publications/'.$name);
+                
+                //create img in database
+                Image::create([
+                    'pub_id' => $pubId,
+                    'image_file' => $url,
+                    ]);
+
+                $count++;
+            }
+         }
+         else{
+             $url = '/storage/img/defaults/publication.png';
+             Image::create([
+                    'pub_id' => $pubId,
+                    'image_file' => $url,
+                    ]);
+         }
+         return redirect('/users/publications/'.$request->user_id);
+
+
     }
 
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Publication;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Auth;
+
 
 class userController extends Controller
 {
