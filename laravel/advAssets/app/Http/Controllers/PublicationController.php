@@ -183,7 +183,9 @@ class PublicationController extends Controller
     public function showPhoto($id)
     {
         $Publication = Image::select('image_file')->where('pub_id','=',$id)->first();
-        
+        if($Publication === null){
+            abort(404);
+        }
         list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
 
         $path = $img."/".$publications."/".$file;

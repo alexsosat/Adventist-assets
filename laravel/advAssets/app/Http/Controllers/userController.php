@@ -61,6 +61,9 @@ class userController extends Controller
     public function showPhoto($id)
     {
         $User = User::select('user_image')->find($id);
+        if($User === null){
+            abort(404);
+        }
         list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
 
         $path = $img."/".$users."/".$file;
