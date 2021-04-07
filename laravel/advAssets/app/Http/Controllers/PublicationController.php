@@ -97,7 +97,10 @@ class PublicationController extends Controller
             $count = 0;
         foreach($request->file('files') as $file)
             {
+                //get image data
                 $name = time().$count.'.'.$file->extension();
+                
+                //storing the image
                 $file->storeAs('/public/img/publications/', $name);
                 $url = Storage::url('img/publications/'.$name);
                 
@@ -106,6 +109,35 @@ class PublicationController extends Controller
                     'pub_id' => $pubId,
                     'image_file' => $url,
                     ]);
+
+                //compressing the image
+                $filepath = public_path('storage/img/publications/'.$name);
+                $mime = mime_content_type($filepath);
+                $output = new \CURLFile($filepath, $mime, $name);
+                $dataImage = ["files" => $output];
+                
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://api.resmush.it/?qlty=80');
+                curl_setopt($ch, CURLOPT_POST,1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataImage);
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    $result = curl_error($ch);
+                }
+                curl_close ($ch);
+                
+                $arr_result = json_decode($result);
+                
+                // store the optimized version of the image
+                $ch = curl_init($arr_result->dest);
+                $fp = fopen($filepath, 'wb');
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_exec($ch);
+                curl_close($ch);
+                fclose($fp);
 
                 $count++;
             }
@@ -226,7 +258,10 @@ class PublicationController extends Controller
             $count = 0;
         foreach($request->file('files') as $file)
             {
+                //getting image data
                 $name = time().$count.'.'.$file->extension();
+
+                //storing the image
                 $file->storeAs('/public/img/publications/', $name);
                 $url = Storage::url('img/publications/'.$name);
                 
@@ -235,6 +270,35 @@ class PublicationController extends Controller
                     'pub_id' => $id,
                     'image_file' => $url,
                     ]);
+
+                //compressing the image
+                $filepath = public_path('storage/img/publications/'.$name);
+                $mime = mime_content_type($filepath);
+                $output = new \CURLFile($filepath, $mime, $name);
+                $dataImage = ["files" => $output];
+                
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://api.resmush.it/?qlty=80');
+                curl_setopt($ch, CURLOPT_POST,1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $dataImage);
+                $result = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    $result = curl_error($ch);
+                }
+                curl_close ($ch);
+                
+                $arr_result = json_decode($result);
+                
+                // store the optimized version of the image
+                $ch = curl_init($arr_result->dest);
+                $fp = fopen($filepath, 'wb');
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_exec($ch);
+                curl_close($ch);
+                fclose($fp);
 
                 $count++;
             }

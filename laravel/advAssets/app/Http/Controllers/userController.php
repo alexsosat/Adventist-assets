@@ -102,18 +102,53 @@ class userController extends Controller
         $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'surname' => ['required', 'string', 'max:255'],
-        'user_image' => 'mimes:jpg,png|max:2048',
+        'user_image' => 'mimes:jpg,png|max:3000',
     ]);
 
 
         if($request->user_image !== null){
+            //Deleting previous image
             list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
             Storage::disk('public')->delete('img/users/'.$file);
 
+            //getting image data
             $extension = $request->user_image->extension();
-            $request->user_image->storeAs('/public/img/users', time().".".$extension);
-            $url = Storage::url('img/users/'.time().".".$extension);
+            $filenametostore = time().'.'.$extension;
+
+            //saving image
+            $request->user_image->storeAs('/public/img/users', $filenametostore);
+            $url = Storage::url('img/users/'.$filenametostore);
             $User->user_image = $url;
+
+            //compressing image
+            $filepath = public_path('storage/img/users/'.$filenametostore);
+            $mime = mime_content_type($filepath);
+            $output = new \CURLFile($filepath, $mime, $filenametostore);
+            $dataImage = ["files" => $output];
+            
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'http://api.resmush.it/?qlty=80');
+            curl_setopt($ch, CURLOPT_POST,1);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $dataImage);
+            $result = curl_exec($ch);
+            if (curl_errno($ch)) {
+                $result = curl_error($ch);
+            }
+            curl_close ($ch);
+            
+            $arr_result = json_decode($result);
+            
+            // store the optimized version of the image
+            $ch = curl_init($arr_result->dest);
+            $fp = fopen($filepath, 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+
         } 
         
         $User->name = $request->name;
