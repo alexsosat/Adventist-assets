@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Publication;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 
 class userController extends Controller
@@ -52,6 +53,34 @@ class userController extends Controller
          return View('users.show')->with(['User'=>User::all()->find($id)]);
     }
 
+    /**
+     * Show the user profile picture
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPhoto($id)
+    {
+        $User = User::select('user_image')->find($id);
+        list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
+
+        $path = $img."/".$users."/".$file;
+        
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+
+            
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
+
+       
+    }
+
      /**
      * Display the specified user publications.
      *
@@ -61,14 +90,13 @@ class userController extends Controller
     public function showPublications($id)
     {
     return View('users.publications')->with(
-        ['User'=>User::select('id','name','surname','user_image')->find($id), 
+        ['User'=>User::select('id','name','surname')->find($id), 
         'Publications'=>
             Publication::select('publication.id','publication.title','publication.desc',
-                'publication.dimension','publication.format', 'image.image_file', 'format.name as formatId','dimension.name as dimensionId')
-            ->join('image', 'publication.id', '=', 'image.pub_id')
+                'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
             ->join('format', 'publication.format','=','format.id')
             ->join('dimension','publication.dimension', '=', 'dimension.id')
-            ->where('user_id','=',$id)->groupBy('publication.id')->paginate(5)]);
+            ->where('user_id','=',$id)->paginate(5)]);
     }
 
     /**

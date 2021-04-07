@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 
 
@@ -171,6 +172,36 @@ class PublicationController extends Controller
     public function show($id)
     {
          
+    }
+
+    
+    /**
+     * Show the publication first picture
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPhoto($id)
+    {
+        $Publication = Image::select('image_file')->where('pub_id','=',$id)->first();
+        
+        list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
+
+        $path = $img."/".$publications."/".$file;
+        
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+
+            
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
+
+       
     }
 
 

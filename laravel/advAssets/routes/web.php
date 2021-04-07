@@ -19,6 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//get images routes
+Route::get('/users/profile_images/{id}', 'userController@showPhoto');
+Route::get('/publications/images/{id}', 'publicationController@showPhoto');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/info/{id}', 'userController@show')->name('users.show')->middleware('auth','uniqueId');
 Route::get('/users/publications/{id}', 'userController@showPublications')->name('users.publications')->middleware('auth', 'uniqueId');

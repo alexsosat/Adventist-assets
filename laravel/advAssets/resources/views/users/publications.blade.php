@@ -6,7 +6,8 @@
             <div class="col-md-4">
                 <div class="d-flex flex-column align-items-center">
                     <div class="rounded-circle big-user-circle mb-3"
-                        style="background: url({{ $User->user_image }}) center / cover no-repeat;"></div>
+                        style="background: url(/users/profile_images/{{ $User->id }}) center / cover no-repeat;">
+                    </div>
                     <h2>{{ $User->name . ' ' . $User->surname }}</h2>
                     <div class="horizontal-separator w-100"></div>
                 </div>
@@ -42,7 +43,8 @@
                     @foreach ($Publications as $Publication)
                         <div class="result-card-item text-left d-sm-flex mb-4">
                             <div class="result-img"
-                                style="background: url({{ $Publication->image_file }}) center / cover no-repeat;"></div>
+                                style="background: url(/publications/images/{{ $Publication->id }}) center / cover no-repeat;">
+                            </div>
                             <div class="result-card-content d-flex flex-column">
                                 <div class="d-sm-flex">
                                     <div class="mb-3 mb-sm-0 w-100">
