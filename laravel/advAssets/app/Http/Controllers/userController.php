@@ -91,21 +91,24 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //searching for the user id to edit
          $User = User::find($id);
    
+         //validating the email if changed
          if($request->email !== $User->email){
               $validated = $request->validate([
                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 ]);
          }
 
+         //validating the data
         $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'surname' => ['required', 'string', 'max:255'],
         'user_image' => 'mimes:jpg,png|max:3000',
     ]);
 
-
+        //updating the image if new file is sent
         if($request->user_image !== null){
             //Deleting previous image
             list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
@@ -151,6 +154,7 @@ class userController extends Controller
 
         } 
         
+        //updating the user data
         $User->name = $request->name;
         $User->surname = $request->surname;
         $User->email = $request->email;
@@ -169,14 +173,18 @@ class userController extends Controller
      */
     public function updatePassword(Request $request, $id)
     {
+        //finding the user to update
          $User = User::find($id);
-   
+        
+         //only update the user if the password is different
          if($request->password !== $User->password){
 
+            //validating the password
             $validated = $request->validate([
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ]);
-
+            
+            //updating the user
             $User->password = bcrypt($request->password);
             $User->update();
          }

@@ -47,6 +47,7 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
+        //Validating the data
           $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
@@ -56,17 +57,21 @@ class PublicationController extends Controller
         'visual_archive' => 'max:50000'
     ]);
 
-
+    
+    //if description is null set a default description
     if($request->description === null){
         $request->description = 'descripción no disponible';
     }
 
-
+    //if a 3d file is submitted then store the data
     $url = null;
     if($request->visual_archive !== null){
+        //checking if the file is compatible
         $allowedfileExtension=['obj','fbx','stl','dae','ply','gltf'];
         $extension = strtolower($request->visual_archive->getClientOriginalExtension());
         $check=in_array($extension,$allowedfileExtension);
+
+        //storing the file if compatible
         if($check){
             $name = time().'.'.$request->visual_archive->getClientOriginalExtension();
             $request->visual_archive->storeAs('/public/objects/', $name);
@@ -89,7 +94,9 @@ class PublicationController extends Controller
                     ])->id;
     
 
+    //check if the request has images
     if($request->hasfile('files')){
+        //validating that the files has images and size acceptable
               $this->validate($request, [
                 'files.*' => 'mimes:jpg,png||max:5048'
         ]);
@@ -149,8 +156,8 @@ class PublicationController extends Controller
                     'image_file' => $url,
                     ]);
          }
-         return redirect('/users/publications/'.$request->user_id);
 
+         return redirect('/users/publications/'.$request->user_id);
 
     }
 
@@ -196,8 +203,10 @@ class PublicationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Finding the publication to edit
         $Publication = Publication::find($id);
 
+        //Validating the data
         $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
@@ -207,15 +216,20 @@ class PublicationController extends Controller
         'visual_archive' => 'max:50000'
     ]);
 
+    //if description is null then set a default description
     if($request->description === null){
         $request->description = 'descripción no disponible';
     }
 
+    //check if the request has a 3d model file
     $url = $Publication->visual_archive;
     if($request->visual_archive !== null){
+        //validating the compatibility of the file
         $allowedfileExtension=['obj','fbx','stl','dae','ply','gltf'];
         $extension = strtolower($request->visual_archive->getClientOriginalExtension());
         $check=in_array($extension,$allowedfileExtension);
+
+        //if compatible store the file
         if($check){
             if($Publication->visual_archive !== null){
                 list($empty, $storage,$objects, $file) = explode("/", $Publication->visual_archive);
@@ -230,7 +244,8 @@ class PublicationController extends Controller
             return redirect()->back()->withInput()->withErrors(['visual archive File Extension not supported', 'visual_archive']);
         }
     }
-            
+        
+    //updating the user
         $Publication->title = $request->title;
         $Publication->desc = $request->description;
         $Publication->url = $request->url;
@@ -240,21 +255,23 @@ class PublicationController extends Controller
 
         $Publication->update();
 
-
+    //Check if the data has images
         if($request->hasfile('files'))
          {
+             //Validating that the files are images and size acceptable
               $this->validate($request, [
                 'files.*' => 'mimes:jpg,png||max:5048'
         ]);
-
+        
+        //searching for the previous model images to delete
         $Images = Image::all()->where('pub_id','=',$id);
-
         foreach($Images as $Image){
             list($empty, $storage,$img, $users, $file) = explode("/", $Image->image_file);
             Storage::disk('public')->delete('img/publications/'.$file);
             Image::destroy($Image->id);
         }
 
+        //storing the multiple images
             $count = 0;
         foreach($request->file('files') as $file)
             {
