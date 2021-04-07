@@ -55,9 +55,27 @@ class PublicationController extends Controller
         'format' => ['required', 'int'],
     ]);
 
+
     if($request->description === null){
         $request->description = 'descripción no disponible';
     }
+
+
+    $url = null;
+    if($request->visual_archive !== null){
+        $allowedfileExtension=['obj','fbx','stl','dae','ply','gltf'];
+        $extension = strtolower($request->visual_archive->getClientOriginalExtension());
+        $check=in_array($extension,$allowedfileExtension);
+        if($check){
+            $name = time().'.'.$request->visual_archive->getClientOriginalExtension();
+            $request->visual_archive->storeAs('/public/objects/', $name);
+            $url = Storage::url('objects/'.$name);
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors(['visual archive File Extension not supported', 'visual_archive']);
+        }
+    }
+
 
      $pubId = Publication::create([
                     'user_id' => $request->user_id,
@@ -66,12 +84,13 @@ class PublicationController extends Controller
                     'url' => $request->url,
                     'dimension' => $request->dimension,
                     'format' => $request->format,
+                    'visual_archive' => $url
                     ])->id;
     
 
     if($request->hasfile('files')){
               $this->validate($request, [
-                'files.*' => 'mimes:jpg,png'
+                'files.*' => 'mimes:jpg,png||max:2048'
         ]);
 
             $count = 0;
