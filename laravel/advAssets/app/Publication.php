@@ -11,7 +11,7 @@ class Publication extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id', 'title', 'desc', 'url','dimension', 'format'
+        'user_id', 'title', 'desc', 'url','dimension', 'format', 'visual_archive'
     ];
 
 }

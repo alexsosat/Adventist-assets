@@ -53,6 +53,7 @@ class PublicationController extends Controller
         'description' => ['nullable','string', 'max:255'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
+        'visual_archive' => 'max:50000'
     ]);
 
 
@@ -90,7 +91,7 @@ class PublicationController extends Controller
 
     if($request->hasfile('files')){
               $this->validate($request, [
-                'files.*' => 'mimes:jpg,png||max:2048'
+                'files.*' => 'mimes:jpg,png||max:5048'
         ]);
 
             $count = 0;
@@ -171,10 +172,31 @@ class PublicationController extends Controller
         'description' => ['nullable','string', 'max:255'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
+        'visual_archive' => 'max:50000'
     ]);
 
     if($request->description === null){
         $request->description = 'descripción no disponible';
+    }
+
+    $url = $Publication->visual_archive;
+    if($request->visual_archive !== null){
+        $allowedfileExtension=['obj','fbx','stl','dae','ply','gltf'];
+        $extension = strtolower($request->visual_archive->getClientOriginalExtension());
+        $check=in_array($extension,$allowedfileExtension);
+        if($check){
+            if($Publication->visual_archive !== null){
+                list($empty, $storage,$objects, $file) = explode("/", $Publication->visual_archive);
+                Storage::disk('public')->delete('objects/'.$file);
+            }
+
+            $name = time().'.'.$request->visual_archive->getClientOriginalExtension();
+            $request->visual_archive->storeAs('/public/objects/', $name);
+            $url = Storage::url('objects/'.$name);
+        }
+        else{
+            return redirect()->back()->withInput()->withErrors(['visual archive File Extension not supported', 'visual_archive']);
+        }
     }
             
         $Publication->title = $request->title;
@@ -182,6 +204,7 @@ class PublicationController extends Controller
         $Publication->url = $request->url;
         $Publication->dimension = $request->dimension;
         $Publication->format = $request->format;
+        $Publication->visual_archive = $url;
 
         $Publication->update();
 
@@ -189,7 +212,7 @@ class PublicationController extends Controller
         if($request->hasfile('files'))
          {
               $this->validate($request, [
-                'files.*' => 'mimes:jpg,png'
+                'files.*' => 'mimes:jpg,png||max:5048'
         ]);
 
         $Images = Image::all()->where('pub_id','=',$id);
