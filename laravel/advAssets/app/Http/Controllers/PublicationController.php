@@ -55,7 +55,9 @@ class PublicationController extends Controller
         'description' => ['nullable','string', 'max:255'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
-        'visual_archive' => 'max:50000'
+        'visual_archive' => 'max:50000',
+        'files' => 'max:5',
+        'files.*' => 'mimes:jpg,png||max:5048'
     ]);
 
     
@@ -97,11 +99,7 @@ class PublicationController extends Controller
 
     //check if the request has images
     if($request->hasfile('files')){
-        //validating that the files has images and size acceptable
-              $this->validate($request, [
-                'files.*' => 'mimes:jpg,png||max:5048'
-        ]);
-
+       
             $count = 0;
         foreach($request->file('files') as $file)
             {
@@ -246,7 +244,9 @@ class PublicationController extends Controller
         'description' => ['nullable','string', 'max:255'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
-        'visual_archive' => 'max:50000'
+        'visual_archive' => 'max:50000',
+        'files' => 'max:5',
+        'files.*' => 'mimes:jpg,png||max:5048'
     ]);
 
     //if description is null then set a default description
@@ -291,11 +291,7 @@ class PublicationController extends Controller
     //Check if the data has images
         if($request->hasfile('files'))
          {
-             //Validating that the files are images and size acceptable
-              $this->validate($request, [
-                'files.*' => 'mimes:jpg,png||max:5048'
-        ]);
-        
+           
         //searching for the previous model images to delete
         $Images = Image::all()->where('pub_id','=',$id);
         foreach($Images as $Image){

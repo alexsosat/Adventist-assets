@@ -102,7 +102,7 @@
                         </div>
                         <div class="form-group files color mb-4">
                             <div>
-                                <label class="font-weight-bold" for="files[]">Imágenes</label>
+                                <label class="font-weight-bold" for="files[]">Imágenes (máximo 5 imágenes)</label>
                                 <input class="form-control-file @error('files.*') is-invalid @enderror" type="file" multiple
                                     name="files[]" autocomplete="files[]" autofocus>
                                 @error('files.*')
