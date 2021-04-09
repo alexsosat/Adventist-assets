@@ -210,7 +210,6 @@ h1, h2, h3, h4, h5, h6 {
 .user-image {
   height: 200px;
   width: 200px;
-  background: url(../../assets/img/1.jpg) center/ contain no-repeat;
 }
 
 .user-a {
@@ -343,5 +342,14 @@ a:hover {
     width: initial!important;
   }
 }
+
+#page-content{
+  min-height: 100vh;
+  
+}
+
+
+
+
 
 

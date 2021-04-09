@@ -94,6 +94,12 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="visual_archive">Archivo de visualizacion:
+                                (obj,fbx,stl,dae,ply,gltf)</label>
+                            <input class="form-control-file @error('visual_archive') is-invalid @enderror" type="file"
+                                name="visual_archive" autocomplete="visual_archive" autofocus>
+                        </div>
                         <div class="form-group files color mb-4">
                             <div>
                                 <label class="font-weight-bold" for="files[]">Imágenes</label>

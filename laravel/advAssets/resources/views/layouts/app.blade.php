@@ -34,63 +34,67 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" id="navbar">
-            <div class="container"><a class="navbar-brand" href="{{ url('/') }}"><img id="nav-logo"
-                        src="{{ asset('img/logo-nav.svg') }}"></a><button data-toggle="collapse"
-                    class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="search.html">Buscar departamento</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
-                    </ul>
-                    @if (Route::has('login'))
-                        @auth
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <div class="d-flex align-items-center">
-                                    <div class="rounded-circle nav-circle-image"
-                                        style="background: url({{ Auth::user()->user_image }}) center / cover no-repeat;">
+        <div id="page-content">
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean-button" id="navbar">
+                <div class="container"><a class="navbar-brand" href="{{ url('/') }}"><img id="nav-logo"
+                            src="{{ asset('img/logo-nav.svg') }}"></a><button data-toggle="collapse"
+                        class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                            navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="search.html">Buscar departamento</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
+                        </ul>
+                        @if (Route::has('login'))
+                            @auth
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle nav-circle-image"
+                                            style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+                                        </div>
+                                        <span class="font-weight-bold">{{ Auth::user()->name }}</span>
+                                        <i class="fas fa-sort-down ml-2"></i>
                                     </div>
-                                    <span class="font-weight-bold">{{ Auth::user()->name }}</span>
-                                    <i class="fas fa-sort-down ml-2"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
+                                        {{ __('info') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('users.publications', Auth::user()->id) }}">
+                                        {{ __('Publicaciones') }}
+                                    </a>
+
+                                    <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
-                                    {{ __('info') }}
-                                </a>
-
-                                <a class="dropdown-item" href="{{ route('users.publications', Auth::user()->id) }}">
-                                    {{ __('Publicaciones') }}
-                                </a>
-
-                                <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        @else
-                            <span class="navbar-text actions"> <a class="login" href="{{ route('login') }}">Log In</a>
-                                @if (Route::has('register'))
-                                    <a class="btn btn-primary rounded text-white" role="button" id="sign-up"
-                                        href="{{ route('register') }}">Sign up</a>
-                                @endif
-                            </span>
-                        @endauth
-                    @endif
+                            @else
+                                <span class="navbar-text actions"> <a class="login" href="{{ route('login') }}">Log
+                                        In</a>
+                                    @if (Route::has('register'))
+                                        <a class="btn btn-primary rounded text-white" role="button" id="sign-up"
+                                            href="{{ route('register') }}">Sign up</a>
+                                    @endif
+                                </span>
+                            @endauth
+                        @endif
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <main class="py-4">
+                @yield('content')
+            </main>
+
+        </div>
 
         <footer class="footer-dark">
             <div class="container"><img class="mx-auto d-block" src="{{ asset('img/logoadv.svg') }}">
@@ -99,8 +103,6 @@
         </footer>
 
     </div>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script> -->
     <script src="{{ asset('js/dropdowns.js') }}"></script>
 </body>
 

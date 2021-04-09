@@ -6,7 +6,8 @@
             <div class="col-md-4">
                 <div class="d-flex flex-column align-items-center">
                     <div class="rounded-circle big-user-circle mb-3"
-                        style="background: url({{ $User->user_image }}) center / cover no-repeat;"></div>
+                        style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+                    </div>
                     <h2>{{ $User->name . ' ' . $User->surname }}</h2>
                     <div class="horizontal-separator w-100"></div>
                 </div>
