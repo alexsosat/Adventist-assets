@@ -104,6 +104,21 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 }
 
+@media (min-width: 576px) {
+  .result-card-content {
+    max-width: 60%;
+  }
+}
+
+.limited-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
 .result-img {
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
@@ -112,6 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .result-card-content {
   margin: 5px 20px 20px 20px;
+  min-width: 60%;
 }
 
 .vertical-separator {
@@ -306,4 +322,26 @@ a:hover {
 .search-item {
   color: black;
 }
+
+.add-button:hover {
+  background-color: #6E8AE9;
+  border-color: #6E8AE9;
+}
+
+.add-button {
+  background-color: #1C3988;
+  border-color: #1C3988;
+  padding: 10px;
+  border-color: #1C3988;
+  width: 100%;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .add-button {
+    display: block;
+    width: initial!important;
+  }
+}
+
 
