@@ -43,7 +43,7 @@
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="search.html">Buscar departamento</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar departamento</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
                         </ul>
                         @if (Route::has('login'))

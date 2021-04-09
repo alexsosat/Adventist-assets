@@ -24,6 +24,16 @@ class PublicationController extends Controller
     public function index()
     {
         //
+        return View('publications.search')->with(
+            ['Publications'=>
+                Publication::select('publication.id','publication.title','publication.desc',
+                    'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
+                ->join('format', 'publication.format','=','format.id')
+                ->join('dimension','publication.dimension', '=', 'dimension.id')
+                ->get() //Limitarlo a 12
+                ]);
+
+
     }
 
 
@@ -169,7 +179,17 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-         
+        return View('publications.detailPage')->with(
+            [   'Imagenes'=> Image::select('id')->where('pub_id','=',$id)->get(),
+
+                'Publication'=>Publication::select('publication.id as pubId','publication.title','publication.desc','publication.url',
+                'publication.dimension','publication.format','dimension.name as dimName','format.name as formName')
+                ->join('dimension', 'publication.dimension', '=', 'dimension.id')
+                ->join('format', 'publication.format', '=', 'format.id')
+                    ->find($id),
+                'Formats'=>DB::select('select * from format'),
+                'Dimensions'=>DB::select('select * from dimension')
+            ]);
     }
 
     
@@ -204,6 +224,36 @@ class PublicationController extends Controller
        
     }
 
+    /**
+     * Show the publication all pictures
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAllPhotos($id)
+    {
+        $Publication = Image::select('image_file')->find($id);
+        if($Publication === null){
+            abort(404);
+        }
+        list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
+
+        $path = $img."/".$publications."/".$file;
+        
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+
+            
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
+
+       
+    }
 
      /**
      * Show the form for editing the specified resource.

@@ -22,13 +22,16 @@ Auth::routes();
 //get images routes
 Route::get('/users/profile_images/{id}', 'userController@showPhoto');
 Route::get('/publications/images/{id}', 'publicationController@showPhoto');
+Route::get('/images/{id}', 'publicationController@showAllPhotos');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/info/{id}', 'userController@show')->name('users.show')->middleware('auth','uniqueId');
 Route::get('/users/publications/{id}', 'userController@showPublications')->name('users.publications')->middleware('auth', 'uniqueId');
 Route::get('/publications/edit/{id}', 'PublicationController@edit')->name('publications.edit')->middleware('auth','permitEdition');
 Route::get('/publications/create', 'PublicationController@create')->name('publications.create')->middleware('auth');
-
+Route::get('/search', 'PublicationController@index')->name('publications.index');
+Route::get('/publications/detailPage/{id}', 'PublicationController@show')->name('publications.detailPage');
 
 Route::patch('/users/update/{id}', 'userController@update')->name('users.update')->middleware('auth');
 Route::patch('/users/updatePassword/{id}', 'userController@updatePassword')->name('users.updatePassword')->middleware('auth');
