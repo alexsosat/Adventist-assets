@@ -30,7 +30,7 @@ class PublicationController extends Controller
                     'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
                 ->join('format', 'publication.format','=','format.id')
                 ->join('dimension','publication.dimension', '=', 'dimension.id')
-                ->get() //Limitarlo a 12
+                ->skip(0)->take(12)->get() //Limitarlo a 12
                 ]);
 
 
