@@ -13,6 +13,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="{{ asset('js/dropdowns.js') }}"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 
 
 
@@ -23,7 +25,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Drag-Drop-File-Input-Upload.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Footer-Dark.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Navigation-with-Button.css') }}">
@@ -103,7 +105,7 @@
         </footer>
 
     </div>
-    <script src="{{ asset('js/dropdowns.js') }}"></script>
+
 </body>
 
 </html>
