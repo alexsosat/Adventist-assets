@@ -19,7 +19,12 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6"><img src="{{ asset('img/header_picture.svg') }}"></div>
+                <div class="col-md-6">
+                    <!--<img src="{{ asset('img/header_picture.svg') }}"> -->
+                    <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_yoatyllj.json"
+                        background="transparent" speed="1" style="width: 100%; height: 100%;" loop autoplay>
+                    </lottie-player>
+                </div>
             </div>
         </div>
     </header>
