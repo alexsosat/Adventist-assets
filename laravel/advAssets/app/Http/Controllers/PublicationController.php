@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Publication;
 use App\Image;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -14,7 +13,6 @@ use app\User;
 
 class PublicationController extends Controller
 {
-    use SoftDeletes;
 
     /**
      * Display a listing of the resource.
