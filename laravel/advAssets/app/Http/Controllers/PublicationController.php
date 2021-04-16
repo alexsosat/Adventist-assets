@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
-
+use app\User;
 
 
 class PublicationController extends Controller
@@ -183,10 +183,14 @@ class PublicationController extends Controller
             [   'Imagenes'=> Image::select('id')->where('pub_id','=',$id)->get(),
 
                 'Publication'=>Publication::select('publication.id as pubId','publication.title','publication.desc','publication.url',
-                'publication.dimension','publication.format','dimension.name as dimName','format.name as formName')
+                'publication.dimension','publication.format','publication.user_id','dimension.name as dimName','format.name as formName',
+                DB::raw('CONCAT(users.name, " ", users.surname) AS full_name'),
+                'users.email' )                
                 ->join('dimension', 'publication.dimension', '=', 'dimension.id')
                 ->join('format', 'publication.format', '=', 'format.id')
+                ->join('users', 'publication.user_id', '=', 'users.id')
                     ->find($id),
+                
                 'Formats'=>DB::select('select * from format'),
                 'Dimensions'=>DB::select('select * from dimension')
             ]);
