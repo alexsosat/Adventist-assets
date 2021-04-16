@@ -45,12 +45,13 @@
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar departamento</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar
+                                    departamento</a></li>
                             <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
                         </ul>
                         @if (Route::has('login'))
                             @auth
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
+                                <a id="navbarDropdown" class="nav-link nav_user" href="#" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <div class="d-flex align-items-center">
                                         <div class="rounded-circle nav-circle-image"

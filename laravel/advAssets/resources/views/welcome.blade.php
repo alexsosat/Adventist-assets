@@ -27,5 +27,6 @@
                 </div>
             </div>
         </div>
+        <model-obj src="{{ asset('objects/Torus.obj') }}"></model-obj>
     </header>
 @endsection
