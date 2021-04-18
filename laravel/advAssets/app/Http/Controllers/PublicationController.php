@@ -24,7 +24,7 @@ class PublicationController extends Controller
         return View('search')->with(
             ['Publications'=>
                 Publication::select('publication.id','publication.title','publication.desc',
-                    'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
+                    'publication.dimension','publication.format','format.name as formatId','dimension.name as dimensionId')
                 ->join('format', 'publication.format','=','format.id')
                 ->join('dimension','publication.dimension', '=', 'dimension.id')
                 ->skip(0)->take(12)->get() //Limitarlo a 12
@@ -178,7 +178,7 @@ class PublicationController extends Controller
             [   'Imagenes'=> Image::select('id')->where('pub_id','=',$id)->get(),
 
                 'Publication'=>Publication::select('publication.id as pubId','publication.title','publication.desc','publication.url',
-                'publication.dimension','publication.format','publication.user_id','dimension.name as dimName','format.name as formName',
+                'publication.dimension','publication.format','publication.user_id', 'publication.visual_archive','dimension.name as dimName','format.name as formName',
                 DB::raw('CONCAT(users.name, " ", users.surname) AS full_name'),
                 'users.email' )                
                 ->join('dimension', 'publication.dimension', '=', 'dimension.id')
@@ -222,6 +222,39 @@ class PublicationController extends Controller
 
        
     }
+
+    /**
+     * Show the publication first picture
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show3DModel($id)
+    {
+       $Publication = Publication::select('visual_archive')->find($id);
+        
+        if($Publication === null){
+            abort(404);
+        }
+        
+        list($empty, $storage,$object, $file) = explode("/", $Publication->visual_archive);
+
+        $path = $object."/".$file;
+        
+            if (!Storage::disk('public')->exists($path)) {
+                abort(404);
+            }
+
+            $file = Storage::disk('public')->get($path);
+            $type = Storage::disk('public')->mimeType($path);
+
+            
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
+       
+    }
+
 
     /**
      * Show the publication all pictures

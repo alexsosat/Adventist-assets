@@ -54,6 +54,9 @@
                     <p>{{ $Publication->desc }}<br></p>
                     <p><br></p>
 
+                    @if ($Publication->visual_archive !== null)
+                        <model-obj src="/models/{{ $Publication->pubId }}"></model-obj>
+                    @endif
                 </div>
             </div>
             <div class="col col-12 col-md-4">

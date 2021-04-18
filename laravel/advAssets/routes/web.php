@@ -24,6 +24,9 @@ Route::get('/users/profile_images/{id}', 'userController@showPhoto');
 Route::get('/publications/images/{id}', 'publicationController@showPhoto');
 Route::get('/images/{id}', 'publicationController@showAllPhotos');
 
+//get 3D Model
+Route::get('/models/{id}', 'publicationController@show3DModel');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users/info/{id}', 'userController@show')->name('users.show')->middleware('auth','uniqueId');
