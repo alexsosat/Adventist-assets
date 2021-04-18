@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="horizontal-separator"></div>
                                 <div class="d-flex justify-content-around flex-column flex-sm-row">
-                                    <a class="btn-ver mb-2" href="DetailPage.html">
+                                    <a class="btn-ver mb-2" href="{{ route('publications.detailPage', $Publication->id) }}">
                                         <i class="fas fa-eye mr-1"></i>
                                         <span>Ver</span>
                                     </a>

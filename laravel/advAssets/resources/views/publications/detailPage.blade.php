@@ -54,8 +54,31 @@
                     <p>{{ $Publication->desc }}<br></p>
                     <p><br></p>
 
-                    @if ($Publication->visual_archive !== null)
-                        <model-obj src="/models/{{ $Publication->pubId }}"></model-obj>
+                    @if ($Publication->dimName === '3D')
+                        @if ($Publication->visual_archive !== null)
+                            @switch($Publication->formName)
+                                @case('OBJ')
+                                    <model-obj src="/models/{{ $Publication->pubId }}"></model-obj>
+                                @break
+                                @case('FBX')
+                                    <model-fbx src="/models/{{ $Publication->pubId }}"></model-fbx>
+                                @break
+                                @case('STL')
+                                    <model-stl src="/models/{{ $Publication->pubId }}"></model-stl>
+                                @break
+                                @case('DAE')
+                                    <model-collada src="/models/{{ $Publication->pubId }}"></model-collada>
+                                @break
+                                @case('PLY')
+                                    <model-ply src="/models/{{ $Publication->pubId }}"></model-ply>
+                                @break
+                                @case('GLTF')
+                                    <model-gltf src="/models/{{ $Publication->pubId }}"></model-gltf>
+                                @break
+                                @default
+                                    <p>Tu modelo no pudo ser procesado</p>
+                            @endswitch
+                        @endif
                     @endif
                 </div>
             </div>

@@ -99,7 +99,7 @@ class userController extends Controller
                 'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
             ->join('format', 'publication.format','=','format.id')
             ->join('dimension','publication.dimension', '=', 'dimension.id')
-            ->where('user_id','=',$id)->paginate(5)]);
+            ->where('user_id','=',$id)->orderBy('id', 'DESC')->paginate(5)]);
     }
 
     /**
