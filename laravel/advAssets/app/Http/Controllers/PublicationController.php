@@ -31,6 +31,29 @@ class PublicationController extends Controller
                 ]);
     }
 
+    /**
+     * Display a listing of the resource with the desire key-words
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request){
+    // Get the search value from the request
+    $search = $request->input('key-words');
+
+    // Search in the title and body columns from the posts table
+    $Publications = Publication::select('publication.id','publication.user_id','publication.title','publication.desc',
+                'publication.dimension','publication.format','publication.url' ,'format.name as formatId','dimension.name as dimensionId',
+                DB::raw('CONCAT(users.name, " ", users.surname) AS full_name'))
+            ->join('format', 'publication.format','=','format.id')
+            ->join('dimension','publication.dimension', '=', 'dimension.id')
+            ->join('users','publication.user_id', '=', 'users.id')
+            ->where('title', 'LIKE', "%{$search}%")
+        ->orWhere('desc', 'LIKE', "%{$search}%")->orderBy('id', 'DESC')->paginate(5);
+
+    // Return the search view with the resluts compacted
+    return view('results', compact('Publications'));
+}
+
 
     /**
      * Show the form for creating a new resource.

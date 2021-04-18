@@ -47,7 +47,8 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar
                                     departamento</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">Acerca de
+                                    nosotros</a></li>
                         </ul>
                         @if (Route::has('login'))
                             @auth

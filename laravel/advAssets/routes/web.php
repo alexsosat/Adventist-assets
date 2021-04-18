@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/about', function () {
+    return view('about');
+});
 
 Auth::routes();
 
@@ -35,6 +38,7 @@ Route::get('/publications/edit/{id}', 'PublicationController@edit')->name('publi
 Route::get('/publications/create', 'PublicationController@create')->name('publications.create')->middleware('auth');
 Route::get('/search', 'PublicationController@index')->name('publications.index');
 Route::get('/publications/detailPage/{id}', 'PublicationController@show')->name('publications.detailPage')->middleware('publicationExists');
+Route::get('/results', 'PublicationController@search')->name('publications.search');
 
 Route::patch('/users/update/{id}', 'userController@update')->name('users.update')->middleware('auth');
 Route::patch('/users/updatePassword/{id}', 'userController@updatePassword')->name('users.updatePassword')->middleware('auth');

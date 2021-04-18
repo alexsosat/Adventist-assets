@@ -16,8 +16,9 @@
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="w-100">
                         <form class="d-flex w-100 align-items-center justify-content-center flex-column flex-sm-row"
-                            method="post"><input class="form-control rounded w-100 form-control" type="text"
-                                placeholder="Palabras clave">
+                            action="{{ route('publications.search') }}" method="GET">
+                            <input class="form-control rounded w-100 form-control" type="text" placeholder="Palabras clave"
+                                name="key-words">
                             <div class="my-2 d-block d-sm-none"></div>
                             <div class="mx-3 d-none d-sm-block"></div><button
                                 class="btn btn-primary search-button btn-block" type="submit">Buscar</button>
