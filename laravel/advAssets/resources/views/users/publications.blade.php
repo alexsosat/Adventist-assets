@@ -75,7 +75,7 @@
                                         <span>Editar</span>
                                     </a>
                                     <a class="btn-borrar mb-2" href="#"
-                                        onclick="event.preventDefault();if(confirm('¿Estas seguro de eliminar esta publicación?')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
+                                        onclick="event.preventDefault();if(confirm('¿Estas seguro de eliminar esta publicación?\nEsta acción no se podrá deshacer')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
                                         <i class=" fas fa-trash mr-1"></i>
                                         <span>Eliminar</span>
 
