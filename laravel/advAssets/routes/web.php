@@ -48,3 +48,4 @@ Route::post('/publications/store', 'PublicationController@store')->name('publica
 
 
 Route::delete('publications/delete/{id}', 'PublicationController@destroy')->name('publications.delete')->middleware('auth');
+Route::delete('users/delete/{id}', 'userController@destroy')->name('users.delete')->middleware('auth','uniqueId');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Publication;
+use App\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -154,6 +155,42 @@ class userController extends Controller
          }
 
         return redirect('/');
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //Finding the User to delete the visual archive in local storage
+        $User = User::find($id);
+        if($User->user_image !== null){
+            list($empty, $storage,$img, $users ,$file) = explode("/", $User->user_image);
+            Storage::disk('public')->delete('img/users/'.$file);
+        }
+        
+        //Finding the publications to delete the visual archive and images in local storage
+        $Publications = Publication::where('user_id','=',$id)->get();
+        foreach($Publications as $Publication){
+            if($Publication->visual_archive !== null){
+                list($empty, $storage,$objects, $file) = explode("/", $Publication->visual_archive);
+                Storage::disk('public')->delete('objects/'.$file);
+            }
+
+            //deleting the publication images
+            $Images = Image::all()->where('pub_id','=',$Publication->id);
+            foreach($Images as $Image){
+                list($empty, $storage,$img, $users, $file) = explode("/", $Image->image_file);
+                Storage::disk('public')->delete('img/publications/'.$file);
+                Image::destroy($Image->id);
+            }
+        }
+
+        User::destroy($id);
+        return redirect()->back();
     }
 
 }

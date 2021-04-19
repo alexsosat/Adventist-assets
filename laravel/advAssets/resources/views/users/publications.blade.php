@@ -65,7 +65,8 @@
                                 </div>
                                 <div class="horizontal-separator"></div>
                                 <div class="d-flex justify-content-around flex-column flex-sm-row">
-                                    <a class="btn-ver mb-2" href="{{ route('publications.detailPage', $Publication->id) }}">
+                                    <a class="btn-ver mb-2"
+                                        href="{{ route('publications.detailPage', $Publication->id) }}">
                                         <i class="fas fa-eye mr-1"></i>
                                         <span>Ver</span>
                                     </a>
@@ -74,7 +75,7 @@
                                         <span>Editar</span>
                                     </a>
                                     <a class="btn-borrar mb-2" href="#"
-                                        onclick="event.preventDefault();if(confirm('Estas seguro de eliminar esta publicación?')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
+                                        onclick="event.preventDefault();if(confirm('¿Estas seguro de eliminar esta publicación?')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
                                         <i class=" fas fa-trash mr-1"></i>
                                         <span>Eliminar</span>
 
@@ -93,20 +94,22 @@
                             <div class="row mb-3">
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <lottie-player src="https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
-                                        background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                                        background="transparent" speed="1" style="width: 300px; height: 300px;" loop
+                                        autoplay>
                                     </lottie-player>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <h3 class="text-center font-weight-bolder"> Vaya parece que no tienes recursos publicados,
+                                    <h3 class="text-center font-weight-bolder"> Vaya parece que no tienes recursos
+                                        publicados,
                                         comienza creando
                                         tu primera publicación dando click al botón de arriba
                                     </h3>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
 
                 @endforelse
                 <!-- hasta aqui -->
