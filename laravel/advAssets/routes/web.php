@@ -23,12 +23,12 @@ Route::get('/about', function () {
 Auth::routes();
 
 //get images routes
-Route::get('/users/profile_images/{id}', 'userController@showPhoto');
-Route::get('/publications/images/{id}', 'publicationController@showPhoto');
-Route::get('/images/{id}', 'publicationController@showAllPhotos');
+Route::get('/users/profile_images/{id}', 'ImageViewer@showUserPhoto');
+Route::get('/publications/images/{id}', 'ImageViewer@showPublicationThumbnail');
+Route::get('/images/{id}', 'ImageViewer@showPublicationGalleryPhoto');
 
 //get 3D Model
-Route::get('/models/{id}', 'publicationController@show3DModel');
+Route::get('/models/{id}', 'ImageViewer@show3DModel');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

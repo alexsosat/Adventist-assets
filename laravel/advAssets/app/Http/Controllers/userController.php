@@ -24,47 +24,6 @@ class userController extends Controller
          return View('users.show')->with(['User'=>User::all()->find($id)]);
     }
 
-    /**
-     * Show the user profile picture
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showPhoto($id)
-    {
-        $User = User::select('user_image')->find($id);
-        if($User === null){
-            abort(404);
-        }
-        if($User->user_image !== null){
-            list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
-
-            $path = $img."/".$users."/".$file;
-        
-            if (!Storage::disk('public')->exists($path)) {
-                abort(404);
-            }
-
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-
-            
-            $response = Response::make($file, 200);
-            $response->header("Content-Type", $type);
-
-            return $response;
-        }   else{
-            
-            $file = file_get_contents(public_path('img/defaults/user.png'));
-            
-            
-            $response = Response::make($file, 200);
-            $response->header("Content-Type", 'image/png');
-
-            return $response;
-
-        }
-       
-    }
 
      /**
      * Display the specified user publications.
