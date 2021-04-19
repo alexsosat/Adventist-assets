@@ -52,34 +52,40 @@
                         </ul>
                         @if (Route::has('login'))
                             @auth
-                                <a id="navbarDropdown" class="nav-link nav_user" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle nav-circle-image"
-                                            style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-block text-left dropdown-button-filter nav_user"
+                                        aria-expanded="false" data-toggle="dropdown" type="button">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle nav-circle-image"
+                                                style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+                                            </div>
+                                            <span class="font-weight-bold">{{ Auth::user()->name }}</span>
+                                            <i class="fas fa-sort-down ml-2"></i>
                                         </div>
-                                        <span class="font-weight-bold">{{ Auth::user()->name }}</span>
-                                        <i class="fas fa-sort-down ml-2"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-type">
+                                        <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
+                                            {{ __('info') }}
+                                        </a>
+
+                                        <a class="dropdown-item"
+                                            href="{{ route('users.publications', Auth::user()->id) }}">
+                                            {{ __('Publicaciones') }}
+                                        </a>
+
+                                        <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
                                     </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
-                                        {{ __('info') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('users.publications', Auth::user()->id) }}">
-                                        {{ __('Publicaciones') }}
-                                    </a>
-
-                                    <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
                                 </div>
+
                             @else
                                 <span class="navbar-text actions"> <a class="login" href="{{ route('login') }}">Log
                                         In</a>
@@ -99,7 +105,6 @@
             </main>
 
         </div>
-
         <footer class="footer-dark">
             <div class="container"><img class="mx-auto d-block" src="{{ asset('img/logoadv.svg') }}">
                 <p class="copyright">Adv. Assets</p>
