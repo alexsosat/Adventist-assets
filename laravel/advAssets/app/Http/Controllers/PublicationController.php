@@ -80,7 +80,7 @@ class PublicationController extends Controller
           $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
-        'description' => ['nullable','string', 'max:255'],
+        'description' => ['nullable','string', 'max:490'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
         'visual_archive' => 'max:50000',
@@ -176,13 +176,6 @@ class PublicationController extends Controller
                 $count++;
             }
          }
-         else{
-             $url = '/storage/img/defaults/publication.png';
-             Image::create([
-                    'pub_id' => $pubId,
-                    'image_file' => $url,
-                    ]);
-         }
 
          return redirect('/users/publications/'.$request->user_id);
 
@@ -224,8 +217,16 @@ class PublicationController extends Controller
     {
         $Publication = Image::select('image_file')->where('pub_id','=',$id)->first();
         if($Publication === null){
-            abort(404);
+            $file = file_get_contents(public_path('img/defaults/publication.png'));
+               
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", 'image/png');
+
+            return $response;
         }
+
+        if($Publication->image_file !== null){
+
         list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
 
         $path = $img."/".$publications."/".$file;
@@ -242,8 +243,7 @@ class PublicationController extends Controller
             $response->header("Content-Type", $type);
 
             return $response;
-
-       
+        }
     }
 
     /**
@@ -346,7 +346,7 @@ class PublicationController extends Controller
         $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
-        'description' => ['nullable','string', 'max:255'],
+        'description' => ['nullable','string', 'max:490'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
         'visual_archive' => 'max:50000',

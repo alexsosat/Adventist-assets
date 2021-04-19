@@ -15,13 +15,19 @@
                     <!--Carousel Wrapper-->
                     <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            @foreach ($Imagenes as $Imagen)
+                            @forelse ($Imagenes as $Imagen)
                                 <div class="carousel-item @if ($loop->index == 0) active @endif">
                                     <div class="d-block slide-image"
                                         style="background:url('/images/{{ $Imagen->id }}')center / contain no-repeat, #F3F3FA;">
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="carousel-item active">
+                                    <div class="d-block slide-image"
+                                        style="background:url('{{ asset('img/defaults/publication.png') }}')center / contain no-repeat, #F3F3FA;">
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                         <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
@@ -32,14 +38,20 @@
                             <span class="sr-only">Next</span>
                         </a>
                         <ol class="carousel-indicators">
-                            @foreach ($Imagenes as $Imagen)
+                            @forelse ($Imagenes as $Imagen)
                                 <li data-target="#carousel-thumb" data-slide-to="{{ $loop->index }}"
                                     class="active  mb-3 mr-3">
                                     <div class="d-block slide-control"
                                         style="background:url('/images/{{ $Imagen->id }}') center / cover no-repeat;">
                                     </div>
                                 </li>
-                            @endforeach
+                            @empty
+                                <li data-target="#carousel-thumb" data-slide-to="0" class="active  mb-3 mr-3">
+                                    <div class="d-block slide-control"
+                                        style="background:url('{{ asset('img/defaults/publication.png') }}') center / cover no-repeat;">
+                                    </div>
+                                </li>
+                            @endforelse
                         </ol>
                     </div>
                     <!--/.Carousel Wrapper-->

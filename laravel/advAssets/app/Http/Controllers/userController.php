@@ -11,36 +11,7 @@ use Illuminate\Support\Facades\Response;
 
 class userController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified user data.
@@ -64,9 +35,10 @@ class userController extends Controller
         if($User === null){
             abort(404);
         }
-        list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
+        if($User->user_image !== null){
+            list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
 
-        $path = $img."/".$users."/".$file;
+            $path = $img."/".$users."/".$file;
         
             if (!Storage::disk('public')->exists($path)) {
                 abort(404);
@@ -80,7 +52,17 @@ class userController extends Controller
             $response->header("Content-Type", $type);
 
             return $response;
+        }   else{
+            
+            $file = file_get_contents(public_path('img/defaults/user.png'));
+            
+            
+            $response = Response::make($file, 200);
+            $response->header("Content-Type", 'image/png');
 
+            return $response;
+
+        }
        
     }
 
@@ -102,16 +84,6 @@ class userController extends Controller
             ->where('user_id','=',$id)->orderBy('id', 'DESC')->paginate(5)]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -141,9 +113,11 @@ class userController extends Controller
 
         //updating the image if new file is sent
         if($request->user_image !== null){
-            //Deleting previous image
-            list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
-            Storage::disk('public')->delete('img/users/'.$file);
+            if($User->user_image !== null){
+                //Deleting previous image
+                list($empty, $storage,$img, $users, $file) = explode("/", $User->user_image);
+                Storage::disk('public')->delete('img/users/'.$file);
+            }
 
             //getting image data
             $extension = $request->user_image->extension();
@@ -223,14 +197,4 @@ class userController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
