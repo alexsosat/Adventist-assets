@@ -359,5 +359,30 @@ a:hover {
 }
 
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 100px;
+  width: 100px;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  background-image: none;
+}
+
+.carousel-control-next-icon:after
+{
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f105";
+  font-size: 54px;
+  color: rgb(83, 83, 83);
+}
+
+.carousel-control-prev-icon:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f104";
+  font-size: 54px;
+  color: rgb(83, 83, 83);
+}
 
 

@@ -23,8 +23,7 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        //
-        return View('publications.search')->with(
+        return View('search')->with(
             ['Publications'=>
                 Publication::select('publication.id','publication.title','publication.desc',
                     'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
@@ -32,8 +31,6 @@ class PublicationController extends Controller
                 ->join('dimension','publication.dimension', '=', 'dimension.id')
                 ->skip(0)->take(12)->get() //Limitarlo a 12
                 ]);
-
-
     }
 
 

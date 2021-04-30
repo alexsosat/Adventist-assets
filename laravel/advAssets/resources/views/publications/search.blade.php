@@ -34,11 +34,11 @@
     @foreach ($Publications as $Publication)
 
         @if ($loop->index % 3 === 0)
-            <div class="container mb-5">
+            <div class="container mb-3">
                 <div class="row">
         @endif
 
-        <div class="col-md-4">
+        <div class="col-md-4 mb-3">
             <div class="recent-item"><a class="search-item"
                     href="{{ route('publications.detailPage', $Publication->id) }}">
                     <div class="recent-item-img"
