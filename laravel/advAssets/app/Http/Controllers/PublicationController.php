@@ -416,6 +416,23 @@ class PublicationController extends Controller
      */
     public function destroy($id)
     {
+        //Finding the publication to delete the visual archive in local storage
+        $Publication = Publication::find($id);
+        if($Publication->visual_archive !== null){
+            list($empty, $storage,$objects, $file) = explode("/", $Publication->visual_archive);
+            Storage::disk('public')->delete('objects/'.$file);
+        }
+
+
+         //deleting the publication images
+        $Images = Image::all()->where('pub_id','=',$id);
+        foreach($Images as $Image){
+            list($empty, $storage,$img, $users, $file) = explode("/", $Image->image_file);
+            Storage::disk('public')->delete('img/publications/'.$file);
+            Image::destroy($Image->id);
+        }
+
+
         Publication::destroy($id);
         return redirect()->back();
     }
