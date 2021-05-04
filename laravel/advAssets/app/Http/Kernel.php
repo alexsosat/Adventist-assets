@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'uniqueId' => \App\Http\Middleware\EnsureIdIsValid::class,
         'permitEdition' => \App\Http\Middleware\publicationEditable::class,
+        'publicationExists' => \App\Http\Middleware\PublicationExists::class,
     ];
 }

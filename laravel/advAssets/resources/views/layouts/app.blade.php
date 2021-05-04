@@ -13,6 +13,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="{{ asset('js/dropdowns.js') }}"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 
 
 
@@ -23,7 +25,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Drag-Drop-File-Input-Upload.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Footer-Dark.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Navigation-with-Button.css') }}">
@@ -43,39 +45,47 @@
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar departamento</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about.html">Acerca de nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('publications.index') }}">Buscar
+                                    departamento</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">Acerca de
+                                    nosotros</a></li>
                         </ul>
                         @if (Route::has('login'))
                             @auth
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle nav_user" href="#" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <div class="d-flex align-items-center">
-                                        <div class="rounded-circle nav-circle-image"
-                                            style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+
+                                <div class="dropdown">
+                                    <button class="btn btn-block text-left dropdown-button-filter nav_user"
+                                        aria-expanded="false" data-toggle="dropdown" type="button">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle nav-circle-image"
+                                                style="background: url(/users/profile_images/{{ Auth::user()->id }}) center / cover no-repeat;">
+                                            </div>
+                                            <span class="font-weight-bold">{{ Auth::user()->name }}</span>
+                                            <i class="fas fa-sort-down ml-2"></i>
                                         </div>
-                                        <span class="font-weight-bold">{{ Auth::user()->name }}</span>
-                                        <i class="fas fa-sort-down ml-2"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-type">
+                                        <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
+                                            {{ __('info') }}
+                                        </a>
+
+                                        <a class="dropdown-item"
+                                            href="{{ route('users.publications', Auth::user()->id) }}">
+                                            {{ __('Publicaciones') }}
+                                        </a>
+
+                                        <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
                                     </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">
-                                        {{ __('info') }}
-                                    </a>
-
-                                    <a class="dropdown-item" href="{{ route('users.publications', Auth::user()->id) }}">
-                                        {{ __('Publicaciones') }}
-                                    </a>
-
-                                    <a class="dropdown-item text-danger mt-3" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
                                 </div>
+
                             @else
                                 <span class="navbar-text actions"> <a class="login" href="{{ route('login') }}">Log
                                         In</a>
@@ -95,7 +105,6 @@
             </main>
 
         </div>
-
         <footer class="footer-dark">
             <div class="container"><img class="mx-auto d-block" src="{{ asset('img/logoadv.svg') }}">
                 <p class="copyright">Adv. Assets</p>
@@ -103,7 +112,7 @@
         </footer>
 
     </div>
-    <script src="{{ asset('js/dropdowns.js') }}"></script>
+
 </body>
 
 </html>

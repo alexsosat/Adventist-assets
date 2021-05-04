@@ -67,7 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
+        $url = null;
         if(array_key_exists('user_image', $data)){
             //Getting image data
             $extension = $data['user_image']->extension();
@@ -108,10 +108,7 @@ class RegisterController extends Controller
             fclose($fp);
 
         }
-        else{
-            $url = "/storage/img/defaults/user.png";
-        }
-
+       
         return User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],

@@ -130,6 +130,10 @@
   color:black;
 }
 
+.nav_user:focus{
+  box-shadow: 0 0 0 0 rgb(52 144 220 / 25%);
+}
+
 .nav-circle-image {
   height: 50px;
   width: 50px;

@@ -385,4 +385,17 @@ a:hover {
   color: rgb(83, 83, 83);
 }
 
+.pub-user{
+  margin-bottom: 25px;
+}
+
+@media (min-width: 576px) {
+  .pub-user{
+    margin-bottom: 0px;
+  }
+}
+
+.result-link{
+  cursor: pointer;
+}
 

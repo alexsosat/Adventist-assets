@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Publication;
 use App\Image;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -14,7 +13,6 @@ use app\User;
 
 class PublicationController extends Controller
 {
-    use SoftDeletes;
 
     /**
      * Display a listing of the resource.
@@ -26,12 +24,35 @@ class PublicationController extends Controller
         return View('search')->with(
             ['Publications'=>
                 Publication::select('publication.id','publication.title','publication.desc',
-                    'publication.dimension','publication.format', 'format.name as formatId','dimension.name as dimensionId')
+                    'publication.dimension','publication.format','format.name as formatId','dimension.name as dimensionId')
                 ->join('format', 'publication.format','=','format.id')
                 ->join('dimension','publication.dimension', '=', 'dimension.id')
-                ->skip(0)->take(12)->get() //Limitarlo a 12
+                ->skip(0)->take(12)->orderBy('id', 'DESC')->get() //Limitarlo a 12
                 ]);
     }
+
+    /**
+     * Display a listing of the resource with the desire key-words
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request){
+    // Get the search value from the request
+    $search = $request->input('key-words');
+
+    // Search in the title and body columns from the posts table
+    $Publications = Publication::select('publication.id','publication.user_id','publication.title','publication.desc',
+                'publication.dimension','publication.format','publication.url' ,'format.name as formatId','dimension.name as dimensionId',
+                DB::raw('CONCAT(users.name, " ", users.surname) AS full_name'))
+            ->join('format', 'publication.format','=','format.id')
+            ->join('dimension','publication.dimension', '=', 'dimension.id')
+            ->join('users','publication.user_id', '=', 'users.id')
+            ->where('title', 'LIKE', "%{$search}%")
+        ->orWhere('desc', 'LIKE', "%{$search}%")->orderBy('id', 'DESC')->paginate(5);
+
+    // Return the search view with the resluts compacted
+    return view('results', compact('Publications'));
+}
 
 
     /**
@@ -59,7 +80,7 @@ class PublicationController extends Controller
           $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
-        'description' => ['nullable','string', 'max:255'],
+        'description' => ['nullable','string', 'max:490'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
         'visual_archive' => 'max:50000',
@@ -155,13 +176,6 @@ class PublicationController extends Controller
                 $count++;
             }
          }
-         else{
-             $url = '/storage/img/defaults/publication.png';
-             Image::create([
-                    'pub_id' => $pubId,
-                    'image_file' => $url,
-                    ]);
-         }
 
          return redirect('/users/publications/'.$request->user_id);
 
@@ -180,7 +194,7 @@ class PublicationController extends Controller
             [   'Imagenes'=> Image::select('id')->where('pub_id','=',$id)->get(),
 
                 'Publication'=>Publication::select('publication.id as pubId','publication.title','publication.desc','publication.url',
-                'publication.dimension','publication.format','publication.user_id','dimension.name as dimName','format.name as formName',
+                'publication.dimension','publication.format','publication.user_id', 'publication.visual_archive','dimension.name as dimName','format.name as formName',
                 DB::raw('CONCAT(users.name, " ", users.surname) AS full_name'),
                 'users.email' )                
                 ->join('dimension', 'publication.dimension', '=', 'dimension.id')
@@ -191,69 +205,6 @@ class PublicationController extends Controller
                 'Formats'=>DB::select('select * from format'),
                 'Dimensions'=>DB::select('select * from dimension')
             ]);
-    }
-
-    
-    /**
-     * Show the publication first picture
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showPhoto($id)
-    {
-        $Publication = Image::select('image_file')->where('pub_id','=',$id)->first();
-        if($Publication === null){
-            abort(404);
-        }
-        list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
-
-        $path = $img."/".$publications."/".$file;
-        
-            if (!Storage::disk('public')->exists($path)) {
-                abort(404);
-            }
-
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-
-            
-            $response = Response::make($file, 200);
-            $response->header("Content-Type", $type);
-
-            return $response;
-
-       
-    }
-
-    /**
-     * Show the publication all pictures
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showAllPhotos($id)
-    {
-        $Publication = Image::select('image_file')->find($id);
-        if($Publication === null){
-            abort(404);
-        }
-        list($empty, $storage,$img, $publications, $file) = explode("/", $Publication->image_file);
-
-        $path = $img."/".$publications."/".$file;
-        
-            if (!Storage::disk('public')->exists($path)) {
-                abort(404);
-            }
-
-            $file = Storage::disk('public')->get($path);
-            $type = Storage::disk('public')->mimeType($path);
-
-            
-            $response = Response::make($file, 200);
-            $response->header("Content-Type", $type);
-
-            return $response;
-
-       
     }
 
      /**
@@ -292,7 +243,7 @@ class PublicationController extends Controller
         $validated = $request->validate([
         'title' => ['required','string', 'max:100'],
         'url' => ['required', 'url', 'max:100'],
-        'description' => ['nullable','string', 'max:255'],
+        'description' => ['nullable','string', 'max:490'],
         'dimension' => ['required', 'int'],
         'format' => ['required', 'int'],
         'visual_archive' => 'max:50000',

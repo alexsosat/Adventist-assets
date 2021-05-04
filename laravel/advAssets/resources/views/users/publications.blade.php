@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-5">
                 <div class="d-flex flex-column align-items-center">
                     <div class="rounded-circle big-user-circle mb-3"
                         style="background: url(/users/profile_images/{{ $User->id }}) center / cover no-repeat;">
@@ -40,7 +40,7 @@
                         </a>
                     </div>
                     <!-- de aqui -->
-                    @foreach ($Publications as $Publication)
+                    @forelse ($Publications as $Publication)
                         <div class="result-card-item text-left d-sm-flex mb-4">
                             <div class="result-img"
                                 style="background: url(/publications/images/{{ $Publication->id }}) center / cover no-repeat;">
@@ -65,7 +65,8 @@
                                 </div>
                                 <div class="horizontal-separator"></div>
                                 <div class="d-flex justify-content-around flex-column flex-sm-row">
-                                    <a class="btn-ver mb-2" href="DetailPage.html">
+                                    <a class="btn-ver mb-2"
+                                        href="{{ route('publications.detailPage', $Publication->id) }}">
                                         <i class="fas fa-eye mr-1"></i>
                                         <span>Ver</span>
                                     </a>
@@ -74,7 +75,7 @@
                                         <span>Editar</span>
                                     </a>
                                     <a class="btn-borrar mb-2" href="#"
-                                        onclick="event.preventDefault();if(confirm('Estas seguro de eliminar esta publicación?')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
+                                        onclick="event.preventDefault();if(confirm('¿Estas seguro de eliminar esta publicación?\nEsta acción no se podrá deshacer')){document.getElementById('delete-pub-{{ $Publication->id }}').submit();}">
                                         <i class=" fas fa-trash mr-1"></i>
                                         <span>Eliminar</span>
 
@@ -88,16 +89,38 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    <!-- hasta aqui -->
+                    @empty
+                        <div class="container">
+                            <div class="row mb-3">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <lottie-player src="https://assets4.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
+                                        background="transparent" speed="1" style="width: 300px; height: 300px;" loop
+                                        autoplay>
+                                    </lottie-player>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <h3 class="text-center font-weight-bolder"> Vaya parece que no tienes recursos
+                                        publicados,
+                                        comienza creando
+                                        tu primera publicación dando click al botón de arriba
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                </div>
 
-                    <div class="d-flex justify-content-end">
-                        <nav>
-                            {{ $Publications->links() }}
-                        </nav>
-                    </div>
+                @endforelse
+                <!-- hasta aqui -->
+
+                <div class="d-flex justify-content-end">
+                    <nav>
+                        {{ $Publications->links() }}
+                    </nav>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

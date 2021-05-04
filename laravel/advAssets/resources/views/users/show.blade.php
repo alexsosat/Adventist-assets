@@ -78,7 +78,7 @@
                         </form>
 
                     </div>
-                    <div>
+                    <div class="mb-5">
                         <h2 class="text-grey">Seguridad</h2>
                         <div class="horizontal-separator w-100"></div>
                         <form method="post" action="{{ route('users.updatePassword', $User->id) }}">
@@ -103,7 +103,25 @@
                                 <button class="btn btn-primary search-button" type="submit">Guardar cambios</button>
                             </div>
                         </form>
+                    </div>
 
+                    <div>
+                        <h2 class="text-grey">Zona de Peligro</h2>
+                        <div class="horizontal-separator w-100"></div>
+                        <span class="mr-3">
+                            Eliminar Usuario:
+                        </span>
+                        <a class="btn-borrar mb-2" href="#"
+                            onclick="event.preventDefault();if(confirm('¿Estas seguro de eliminar el usuario?\nEsta acción es permanente')){document.getElementById('delete-pub-{{ $User->id }}').submit();}">
+                            <i class=" fas fa-trash mr-1"></i>
+                            <span>Eliminar</span>
+
+                            <form id="delete-pub-{{ $User->id }}" action="{{ route('users.delete', $User->id) }}"
+                                method="POST" class="d-none">
+                                @csrf
+                                @method('delete')
+                            </form>
+                        </a>
                     </div>
                 </div>
             </div>
